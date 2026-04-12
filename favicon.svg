@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="#2563eb"/>
+
+  <!-- Printer frame -->
+  <rect x="5" y="7" width="22" height="15" rx="2" fill="none" stroke="white" stroke-width="2"/>
+
+  <!-- Top rail (full width, slightly raised) -->
+  <rect x="3" y="10" width="26" height="3" rx="1.5" fill="white"/>
+
+  <!-- Print head carriage on rail -->
+  <rect x="12" y="9" width="8" height="5" rx="1.5" fill="#93c5fd"/>
+
+  <!-- Nozzle -->
+  <path d="M14.5 14 L16 17 L17.5 14 Z" fill="white"/>
+
+  <!-- Item being printed -->
+  <rect x="12" y="17" width="8" height="3" rx="0.5" fill="white" opacity="0.75"/>
+
+  <!-- Build plate -->
+  <rect x="6" y="20" width="20" height="2" rx="1" fill="white"/>
+
+  <!-- Legs -->
+  <rect x="7"  y="22" width="2.5" height="4" rx="1.25" fill="white"/>
+  <rect x="22.5" y="22" width="2.5" height="4" rx="1.25" fill="white"/>
+</svg>
