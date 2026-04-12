@@ -15,8 +15,12 @@ import type { CalculationValues } from '../types';
 
 const SECTIONS_COUNT = 4;
 
-const Calculator = () => {
-  // State management through custom hooks
+interface CalculatorProps {
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
+}
+
+const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
   const {
     values,
     results,
@@ -31,42 +35,30 @@ const Calculator = () => {
     setSectionRef
   } = useNavigation(SECTIONS_COUNT);
 
-  // Modal state
   const [showSettings, setShowSettings] = useState(false);
   const [showTips, setShowTips] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState<'selling' | 'recommended'>('recommended');
 
-  // Event handlers
   const handleUpdateValue = useCallback((key: keyof CalculationValues, value: number) => {
     updateValue(key, value);
   }, [updateValue]);
 
-  const handleOpenSettings = useCallback(() => {
-    setShowSettings(true);
-  }, []);
-
-  const handleCloseSettings = useCallback(() => {
-    setShowSettings(false);
-  }, []);
-
-  const handleShowTips = useCallback(() => {
-    setShowTips(true);
-  }, []);
-
-  const handleCloseTips = useCallback(() => {
-    setShowTips(false);
-  }, []);
+  const handleOpenSettings = useCallback(() => setShowSettings(true), []);
+  const handleCloseSettings = useCallback(() => setShowSettings(false), []);
+  const handleShowTips = useCallback(() => setShowTips(true), []);
+  const handleCloseTips = useCallback(() => setShowTips(false), []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation Header */}
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navigation
         activeSection={activeSection}
         language={settings.language}
         onScrollToSection={scrollToSection}
         onOpenSettings={handleOpenSettings}
+        theme={theme}
+        onToggleTheme={onToggleTheme}
       />
 
-      {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Input Sections */}
@@ -107,7 +99,6 @@ const Calculator = () => {
               sectionRef={setSectionRef(3)}
             />
 
-            {/* Spacing for better UX */}
             <div className="h-16" aria-hidden="true" />
           </div>
 
@@ -125,6 +116,8 @@ const Calculator = () => {
               currency={settings.currency}
               language={settings.language}
               onShowTips={handleShowTips}
+              selectedPrice={selectedPrice}
+              onSelectPrice={setSelectedPrice}
             />
 
             <BatchSummary
@@ -132,12 +125,12 @@ const Calculator = () => {
               results={results}
               currency={settings.currency}
               language={settings.language}
+              selectedPrice={selectedPrice}
             />
           </div>
         </div>
       </main>
 
-      {/* Modals */}
       <SettingsModal
         isOpen={showSettings}
         onClose={handleCloseSettings}

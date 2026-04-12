@@ -18,11 +18,13 @@ const AVAILABLE_CURRENCIES: Array<{ code: Currency; name: string; symbol: string
   { code: 'CAD', name: 'Canadian Dollar', symbol: 'CA$' }
 ] as const;
 
-export const SettingsModal = memo<SettingsModalProps>(({ 
-  isOpen, 
-  onClose, 
-  settings, 
-  onUpdateSettings 
+const selectClass = "w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white";
+
+export const SettingsModal = memo<SettingsModalProps>(({
+  isOpen,
+  onClose,
+  settings,
+  onUpdateSettings
 }) => {
   const t = useTranslation(settings.language);
 
@@ -30,9 +32,9 @@ export const SettingsModal = memo<SettingsModalProps>(({
     <Modal isOpen={isOpen} onClose={onClose} title={t.settings}>
       <div className="space-y-4">
         <div>
-          <label 
+          <label
             htmlFor="language-select"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
             {t.language}
           </label>
@@ -40,20 +42,18 @@ export const SettingsModal = memo<SettingsModalProps>(({
             id="language-select"
             value={settings.language}
             onChange={(e) => onUpdateSettings({ language: e.target.value as AppSettings['language'] })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={selectClass}
           >
             {AVAILABLE_LANGUAGES.map(({ code, name }) => (
-              <option key={code} value={code}>
-                {name}
-              </option>
+              <option key={code} value={code}>{name}</option>
             ))}
           </select>
         </div>
-        
+
         <div>
-          <label 
+          <label
             htmlFor="currency-select"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
             {t.currency}
           </label>
@@ -61,12 +61,10 @@ export const SettingsModal = memo<SettingsModalProps>(({
             id="currency-select"
             value={settings.currency}
             onChange={(e) => onUpdateSettings({ currency: e.target.value as Currency })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={selectClass}
           >
             {AVAILABLE_CURRENCIES.map(({ code, name, symbol }) => (
-              <option key={code} value={code}>
-                {name} ({symbol})
-              </option>
+              <option key={code} value={code}>{name} ({symbol})</option>
             ))}
           </select>
         </div>

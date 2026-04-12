@@ -27,26 +27,26 @@ export const LaborSection = memo<LaborSectionProps>(({
   const t = useTranslation(language);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="bg-white rounded-lg shadow-md p-4 border-l-4 border-green-500"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-l-4 border-green-500"
       aria-labelledby="labor-section-title"
     >
       <div className="flex items-center mb-3">
         <Clock className="h-5 w-5 text-green-500 mr-2" aria-hidden="true" />
-        <h2 id="labor-section-title" className="text-lg font-semibold text-gray-900">
+        <h2 id="labor-section-title" className="text-lg font-semibold text-gray-900 dark:text-white">
           {t.timeLabor}
         </h2>
       </div>
-      
+
       <TimeInputField
         label={t.printTime}
         value={values.printTime}
         onChange={(value) => onUpdateValue('printTime', value)}
-        unit={t.units.hours}
+        unit=""
         aria-describedby="print-time-description"
       />
-      
+
       <InputField
         label={t.hourlyRate}
         value={values.hourlyRate}
@@ -54,13 +54,21 @@ export const LaborSection = memo<LaborSectionProps>(({
         unit={`${CURRENCY_SYMBOLS[currency]}/hr`}
         aria-describedby="hourly-rate-description"
       />
-      
-      <div 
-        className="bg-green-50 p-2 rounded-md"
+
+      <InputField
+        label={t.hourlyRateGlobal}
+        value={values.hourlyRateGlobal}
+        onChange={(e) => onUpdateValue('hourlyRateGlobal', parseFloat(e.target.value) || 0)}
+        unit={CURRENCY_SYMBOLS[currency]}
+        aria-describedby="hourly-rate-global-description"
+      />
+
+      <div
+        className="bg-green-50 dark:bg-green-900/30 p-2 rounded-md"
         role="status"
         aria-live="polite"
       >
-        <p className="text-sm text-green-800">
+        <p className="text-sm text-green-800 dark:text-green-300">
           <strong>{t.laborCost}:</strong> {formatPrice(results.laborCost, currency)}
         </p>
       </div>

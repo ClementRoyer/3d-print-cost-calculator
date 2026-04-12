@@ -7,10 +7,12 @@ export interface CalculationValues {
   printWeight: number;
   printTime: number;
   hourlyRate: number;
+  hourlyRateGlobal: number;
   printerWattage: number;
   electricityRate: number;
   wearTearPerHour: number;
   packagingCost: number;
+  packagingCostGlobal: number;
   profitMargin: number;
   quantity: number;
 }

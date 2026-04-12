@@ -9,16 +9,16 @@ interface TipsModalProps {
   readonly language: Language;
 }
 
-export const TipsModal = memo<TipsModalProps>(({ 
-  isOpen, 
-  onClose, 
-  language 
+export const TipsModal = memo<TipsModalProps>(({
+  isOpen,
+  onClose,
+  language
 }) => {
   const t = useTranslation(language);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={t.businessTips}>
-      <div className="space-y-3 text-sm text-gray-600">
+      <div className="space-y-3 text-sm text-gray-600 dark:text-gray-300">
         {t.tips.map((tip, index) => (
           <p key={index}>{tip}</p>
         ))}

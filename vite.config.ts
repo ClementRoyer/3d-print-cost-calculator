@@ -1,10 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/3d-print-cost-calculator/',
+  base: '/',
+  server: {
+    port: 5174,
+    allowedHosts: ['3d-calc.croyer.fr'],
+    hmr: {
+      clientPort: 443,
+      host: '3d-calc.croyer.fr',
+      protocol: 'wss',
+    },
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

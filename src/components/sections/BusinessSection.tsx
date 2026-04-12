@@ -26,18 +26,18 @@ export const BusinessSection = memo<BusinessSectionProps>(({
   const t = useTranslation(language);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="bg-white rounded-lg shadow-md p-4 border-l-4 border-purple-500"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-l-4 border-purple-500"
       aria-labelledby="business-section-title"
     >
       <div className="flex items-center mb-3">
         <DollarSign className="h-5 w-5 text-purple-500 mr-2" aria-hidden="true" />
-        <h2 id="business-section-title" className="text-lg font-semibold text-gray-900">
+        <h2 id="business-section-title" className="text-lg font-semibold text-gray-900 dark:text-white">
           {t.businessSettings}
         </h2>
       </div>
-      
+
       <InputField
         label={t.profitMargin}
         value={values.profitMargin}
@@ -47,7 +47,7 @@ export const BusinessSection = memo<BusinessSectionProps>(({
         min="0"
         aria-describedby="profit-margin-description"
       />
-      
+
       <InputField
         label={t.quantity}
         value={values.quantity}
@@ -57,13 +57,13 @@ export const BusinessSection = memo<BusinessSectionProps>(({
         min="1"
         aria-describedby="quantity-description"
       />
-      
-      <div 
-        className="bg-purple-50 p-2 rounded-md"
+
+      <div
+        className="bg-purple-50 dark:bg-purple-900/30 p-2 rounded-md"
         role="status"
         aria-live="polite"
       >
-        <p className="text-sm text-purple-800">
+        <p className="text-sm text-purple-800 dark:text-purple-300">
           <strong>{t.profitPerUnit}:</strong> {formatPrice(results.profit, currency)}
         </p>
       </div>

@@ -15,14 +15,16 @@ export const en = {
   
   // Time & Labor
   printTime: "Print time",
-  hourlyRate: "Hourly labor rate",
+  hourlyRate: "Hourly labor rate (per piece)",
+  hourlyRateGlobal: "Global labor cost",
   laborCost: "Labor cost",
   
   // Operating Costs
   printerWattage: "Printer wattage",
   electricityRate: "Electricity rate",
   wearTearPerHour: "Wear & tear cost per hour",
-  packagingCost: "Packaging cost",
+  packagingCost: "Packaging cost (per piece)",
+  packagingCostGlobal: "Packaging cost (global)",
   electricity: "Electricity",
   wearTear: "Wear & tear",
   packaging: "Packaging",
@@ -45,6 +47,7 @@ export const en = {
   batchSummary: "Batch Summary",
   totalRevenue: "Total Revenue",
   totalProfit: "Total Profit",
+  batchDiscount: "Discount",
   
   // Business Tips
   businessTips: "Business Tips",

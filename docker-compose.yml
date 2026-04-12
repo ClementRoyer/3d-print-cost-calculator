@@ -1,0 +1,10 @@
+services:
+  front:
+    build: /volume3/dev/3d-calc
+    container_name: 3d_print_calc
+    ports:
+      - "5174:5174"
+    volumes:
+      - /volume3/dev/3d-calc:/app
+      - /app/node_modules
+    restart: unless-stopped

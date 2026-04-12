@@ -49,20 +49,23 @@ export const calculatePrintCosts = (values: CalculationValues): CalculationResul
     printWeight: Math.max(0, values.printWeight || 0),
     printTime: Math.max(0, values.printTime || 0),
     hourlyRate: Math.max(0, values.hourlyRate || 0),
+    hourlyRateGlobal: Math.max(0, values.hourlyRateGlobal || 0),
     printerWattage: Math.max(0, values.printerWattage || 0),
     electricityRate: Math.max(0, values.electricityRate || 0),
     wearTearPerHour: Math.max(0, values.wearTearPerHour || 0),
     packagingCost: Math.max(0, values.packagingCost || 0),
+    packagingCostGlobal: Math.max(0, values.packagingCostGlobal || 0),
     profitMargin: Math.max(0, values.profitMargin || 0),
     quantity: Math.max(1, values.quantity || 1)
   };
 
   // Core calculations
   const materialCost = safeValues.filamentCostPerKg * (safeValues.printWeight / 1000);
-  const laborCost = safeValues.printTime * safeValues.hourlyRate;
+  const laborCost = safeValues.printTime * safeValues.hourlyRate + safeValues.hourlyRateGlobal;
   const electricityCost = (safeValues.printerWattage / 1000) * safeValues.printTime * safeValues.electricityRate;
   const wearTearCost = safeValues.printTime * safeValues.wearTearPerHour;
-  const totalCost = materialCost + laborCost + electricityCost + wearTearCost + safeValues.packagingCost;
+  const packagingTotal = safeValues.packagingCost + safeValues.packagingCostGlobal;
+  const totalCost = materialCost + laborCost + electricityCost + wearTearCost + packagingTotal;
   const profit = totalCost * (safeValues.profitMargin / 100);
   const sellingPrice = totalCost + profit;
 

@@ -25,18 +25,18 @@ export const MaterialSection = memo<MaterialSectionProps>(({
   const t = useTranslation(language);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-500"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-l-4 border-blue-500"
       aria-labelledby="material-section-title"
     >
       <div className="flex items-center mb-3">
         <Package className="h-5 w-5 text-blue-500 mr-2" aria-hidden="true" />
-        <h2 id="material-section-title" className="text-lg font-semibold text-gray-900">
+        <h2 id="material-section-title" className="text-lg font-semibold text-gray-900 dark:text-white">
           {t.materialCosts}
         </h2>
       </div>
-      
+
       <InputField
         label={t.filamentCostPerKg}
         value={values.filamentCostPerKg}
@@ -45,7 +45,7 @@ export const MaterialSection = memo<MaterialSectionProps>(({
         step="0.5"
         aria-describedby="filament-cost-description"
       />
-      
+
       <InputField
         label={t.printWeight}
         value={values.printWeight}
@@ -53,13 +53,13 @@ export const MaterialSection = memo<MaterialSectionProps>(({
         unit={t.units.grams}
         aria-describedby="print-weight-description"
       />
-      
-      <div 
-        className="bg-blue-50 p-2 rounded-md"
+
+      <div
+        className="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-md"
         role="status"
         aria-live="polite"
       >
-        <p className="text-sm text-blue-800">
+        <p className="text-sm text-blue-800 dark:text-blue-300">
           <strong>{t.materialCost}:</strong> {formatPrice(results.materialCost, currency)}
         </p>
       </div>

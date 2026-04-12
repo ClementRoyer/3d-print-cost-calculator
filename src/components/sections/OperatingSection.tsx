@@ -26,18 +26,18 @@ export const OperatingSection = memo<OperatingSectionProps>(({
   const t = useTranslation(language);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      className="bg-white rounded-lg shadow-md p-4 border-l-4 border-orange-500"
+      className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border-l-4 border-orange-500"
       aria-labelledby="operating-section-title"
     >
       <div className="flex items-center mb-3">
         <Zap className="h-5 w-5 text-orange-500 mr-2" aria-hidden="true" />
-        <h2 id="operating-section-title" className="text-lg font-semibold text-gray-900">
+        <h2 id="operating-section-title" className="text-lg font-semibold text-gray-900 dark:text-white">
           {t.operatingCosts}
         </h2>
       </div>
-      
+
       <InputField
         label={t.printerWattage}
         value={values.printerWattage}
@@ -46,7 +46,7 @@ export const OperatingSection = memo<OperatingSectionProps>(({
         step="1"
         aria-describedby="printer-wattage-description"
       />
-      
+
       <InputField
         label={t.electricityRate}
         value={values.electricityRate}
@@ -54,7 +54,7 @@ export const OperatingSection = memo<OperatingSectionProps>(({
         unit={`${CURRENCY_SYMBOLS[currency]}/kWh`}
         aria-describedby="electricity-rate-description"
       />
-      
+
       <InputField
         label={t.wearTearPerHour}
         value={values.wearTearPerHour}
@@ -62,7 +62,7 @@ export const OperatingSection = memo<OperatingSectionProps>(({
         unit={`${CURRENCY_SYMBOLS[currency]}/hr`}
         aria-describedby="wear-tear-description"
       />
-      
+
       <InputField
         label={t.packagingCost}
         value={values.packagingCost}
@@ -71,20 +71,29 @@ export const OperatingSection = memo<OperatingSectionProps>(({
         step="0.5"
         aria-describedby="packaging-cost-description"
       />
-      
-      <div 
-        className="bg-orange-50 p-2 rounded-md space-y-1"
+
+      <InputField
+        label={t.packagingCostGlobal}
+        value={values.packagingCostGlobal}
+        onChange={(e) => onUpdateValue('packagingCostGlobal', parseFloat(e.target.value) || 0)}
+        unit={CURRENCY_SYMBOLS[currency]}
+        step="0.5"
+        aria-describedby="packaging-cost-global-description"
+      />
+
+      <div
+        className="bg-orange-50 dark:bg-orange-900/30 p-2 rounded-md space-y-1"
         role="status"
         aria-live="polite"
       >
-        <p className="text-sm text-orange-800">
+        <p className="text-sm text-orange-800 dark:text-orange-300">
           <strong>{t.electricity}:</strong> {formatPrice(results.electricityCost, currency)}
         </p>
-        <p className="text-sm text-orange-800">
+        <p className="text-sm text-orange-800 dark:text-orange-300">
           <strong>{t.wearTear}:</strong> {formatPrice(results.wearTearCost, currency)}
         </p>
-        <p className="text-sm text-orange-800">
-          <strong>{t.packaging}:</strong> {formatPrice(values.packagingCost, currency)}
+        <p className="text-sm text-orange-800 dark:text-orange-300">
+          <strong>{t.packaging}:</strong> {formatPrice(values.packagingCost + values.packagingCostGlobal, currency)}
         </p>
       </div>
     </section>

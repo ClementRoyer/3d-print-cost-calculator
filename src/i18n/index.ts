@@ -14,11 +14,13 @@ export interface Translation {
   materialCost: string;
   printTime: string;
   hourlyRate: string;
+  hourlyRateGlobal: string;
   laborCost: string;
   printerWattage: string;
   electricityRate: string;
   wearTearPerHour: string;
   packagingCost: string;
+  packagingCostGlobal: string;
   electricity: string;
   wearTear: string;
   packaging: string;
@@ -37,6 +39,7 @@ export interface Translation {
   batchSummary: string;
   totalRevenue: string;
   totalProfit: string;
+  batchDiscount: string;
   businessTips: string;
   tips: readonly string[];
   units: {

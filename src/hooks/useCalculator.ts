@@ -4,15 +4,17 @@ import { DEFAULT_LANGUAGE } from '../i18n';
 import { calculatePrintCosts } from '../utils/calculations';
 
 const DEFAULT_VALUES: CalculationValues = {
-  filamentCostPerKg: 29.00,
+  filamentCostPerKg: 19.00,
   printWeight: 238.67,
   printTime: 7.5,
   hourlyRate: 0.00,
+  hourlyRateGlobal: 0.00,
   printerWattage: 350,
   electricityRate: 0.20,
   wearTearPerHour: 0.20,
   packagingCost: 0.00,
-  profitMargin: 0,
+  packagingCostGlobal: 0.00,
+  profitMargin: 30,
   quantity: 1
 } as const;
 
