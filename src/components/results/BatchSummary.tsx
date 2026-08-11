@@ -55,7 +55,7 @@ export const BatchSummary = memo<BatchSummaryProps>(({
           />
           <span className="absolute right-3 top-1.5 text-gray-500 dark:text-gray-400 text-sm pointer-events-none">%</span>
         </div>
-        {[5, 10, 15].map((preset) => (
+        {[0, 5, 10, 15].map((preset) => (
           <button
             key={preset}
             onClick={() => setDiscount(discount === preset ? 0 : preset)}
