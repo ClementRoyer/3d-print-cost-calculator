@@ -55,6 +55,12 @@ export const calculatePrintCosts = (values: CalculationValues): CalculationResul
     wearTearPerHour: Math.max(0, values.wearTearPerHour || 0),
     packagingCost: Math.max(0, values.packagingCost || 0),
     packagingCostGlobal: Math.max(0, values.packagingCostGlobal || 0),
+    cfsWattage: Math.max(0, values.cfsWattage || 0),
+    dryingCostPerPrint: Math.max(0, values.dryingCostPerPrint || 0),
+    colorCount: Math.max(1, values.colorCount || 1),
+    colorSurchargePerColor: Math.max(0, values.colorSurchargePerColor || 0),
+    isSpecificSpoolRequired: values.isSpecificSpoolRequired || false,
+    specificSpoolCost: Math.max(0, values.specificSpoolCost || 0),
     profitMargin: Math.max(0, values.profitMargin || 0),
     quantity: Math.max(1, values.quantity || 1)
   };
@@ -62,10 +68,13 @@ export const calculatePrintCosts = (values: CalculationValues): CalculationResul
   // Core calculations
   const materialCost = safeValues.filamentCostPerKg * (safeValues.printWeight / 1000);
   const laborCost = safeValues.printTime * safeValues.hourlyRate + safeValues.hourlyRateGlobal;
-  const electricityCost = (safeValues.printerWattage / 1000) * safeValues.printTime * safeValues.electricityRate;
+  const electricityCost = ((safeValues.printerWattage + safeValues.cfsWattage) / 1000) * safeValues.printTime * safeValues.electricityRate;
   const wearTearCost = safeValues.printTime * safeValues.wearTearPerHour;
   const packagingTotal = safeValues.packagingCost + safeValues.packagingCostGlobal;
-  const totalCost = materialCost + laborCost + electricityCost + wearTearCost + packagingTotal;
+  const colorSurcharge = safeValues.colorCount > 1 ? (safeValues.colorCount - 1) * safeValues.colorSurchargePerColor : 0;
+  const spoolSurcharge = safeValues.isSpecificSpoolRequired ? safeValues.specificSpoolCost : 0;
+  const extrasCost = safeValues.dryingCostPerPrint + colorSurcharge + spoolSurcharge;
+  const totalCost = materialCost + laborCost + electricityCost + wearTearCost + packagingTotal + extrasCost;
   const profit = totalCost * (safeValues.profitMargin / 100);
   const sellingPrice = totalCost + profit;
 
@@ -74,6 +83,7 @@ export const calculatePrintCosts = (values: CalculationValues): CalculationResul
     laborCost,
     electricityCost,
     wearTearCost,
+    extrasCost,
     totalCost,
     profit,
     sellingPrice

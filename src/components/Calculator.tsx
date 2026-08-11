@@ -5,6 +5,7 @@ import { Navigation } from './navigation/Navigation';
 import { MaterialSection } from './sections/MaterialSection';
 import { LaborSection } from './sections/LaborSection';
 import { OperatingSection } from './sections/OperatingSection';
+import { ExtrasSection } from './sections/ExtrasSection';
 import { BusinessSection } from './sections/BusinessSection';
 import { CostBreakdown } from './results/CostBreakdown';
 import { PriceDisplay } from './results/PriceDisplay';
@@ -13,7 +14,7 @@ import { SettingsModal } from './modals/SettingsModal';
 import { TipsModal } from './modals/TipsModal';
 import type { CalculationValues } from '../types';
 
-const SECTIONS_COUNT = 4;
+const SECTIONS_COUNT = 5;
 
 interface CalculatorProps {
   theme: 'light' | 'dark';
@@ -39,7 +40,7 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
   const [showTips, setShowTips] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState<'selling' | 'recommended'>('recommended');
 
-  const handleUpdateValue = useCallback((key: keyof CalculationValues, value: number) => {
+  const handleUpdateValue = useCallback((key: keyof CalculationValues, value: number | boolean) => {
     updateValue(key, value);
   }, [updateValue]);
 
@@ -90,13 +91,22 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
               sectionRef={setSectionRef(2)}
             />
 
-            <BusinessSection
+            <ExtrasSection
               values={values}
               results={results}
               currency={settings.currency}
               language={settings.language}
               onUpdateValue={handleUpdateValue}
               sectionRef={setSectionRef(3)}
+            />
+
+            <BusinessSection
+              values={values}
+              results={results}
+              currency={settings.currency}
+              language={settings.language}
+              onUpdateValue={handleUpdateValue}
+              sectionRef={setSectionRef(4)}
             />
 
             <div className="h-16" aria-hidden="true" />

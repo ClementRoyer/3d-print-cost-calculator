@@ -6,6 +6,7 @@ export const en = {
   materialCosts: "Material Costs",
   timeLabor: "Time & Labor",
   operatingCosts: "Operating Costs",
+  extrasCosts: "Extras",
   businessSettings: "Business Settings",
   
   // Material Costs
@@ -28,7 +29,19 @@ export const en = {
   electricity: "Electricity",
   wearTear: "Wear & tear",
   packaging: "Packaging",
-  
+
+  // Extras
+  cfsWattage: "CFS wattage",
+  dryingCostPerPrint: "Sylca ball drying cost (per print)",
+  colorCount: "Number of colors",
+  colorSurchargePerColor: "Surcharge per extra color",
+  specificSpoolRequired: "Specific spool required",
+  specificSpoolCost: "Specific spool surcharge",
+  extras: "Extras",
+  drying: "Drying",
+  colorSurcharge: "Color surcharge",
+  spoolSurcharge: "Spool surcharge",
+
   // Business Settings
   profitMargin: "Profit margin",
   quantity: "Quantity to print",
@@ -66,7 +79,8 @@ export const en = {
     hours: "hours",
     watts: "W",
     pieces: "pieces",
-    percent: "%"
+    percent: "%",
+    colors: "colors"
   },
   
   // Settings

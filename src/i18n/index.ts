@@ -8,6 +8,7 @@ export interface Translation {
   materialCosts: string;
   timeLabor: string;
   operatingCosts: string;
+  extrasCosts: string;
   businessSettings: string;
   filamentCostPerKg: string;
   printWeight: string;
@@ -24,6 +25,16 @@ export interface Translation {
   electricity: string;
   wearTear: string;
   packaging: string;
+  cfsWattage: string;
+  dryingCostPerPrint: string;
+  colorCount: string;
+  colorSurchargePerColor: string;
+  specificSpoolRequired: string;
+  specificSpoolCost: string;
+  extras: string;
+  drying: string;
+  colorSurcharge: string;
+  spoolSurcharge: string;
   profitMargin: string;
   quantity: string;
   profitPerUnit: string;
@@ -49,6 +60,7 @@ export interface Translation {
     watts: string;
     pieces: string;
     percent: string;
+    colors: string;
   };
   settings: string;
   language: string;

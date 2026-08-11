@@ -13,6 +13,12 @@ export interface CalculationValues {
   wearTearPerHour: number;
   packagingCost: number;
   packagingCostGlobal: number;
+  cfsWattage: number;
+  dryingCostPerPrint: number;
+  colorCount: number;
+  colorSurchargePerColor: number;
+  isSpecificSpoolRequired: boolean;
+  specificSpoolCost: number;
   profitMargin: number;
   quantity: number;
 }
@@ -22,6 +28,7 @@ export interface CalculationResults {
   laborCost: number;
   electricityCost: number;
   wearTearCost: number;
+  extrasCost: number;
   totalCost: number;
   profit: number;
   sellingPrice: number;
@@ -49,6 +56,7 @@ export interface InputFieldProps {
   min?: string;
   max?: string;
   error?: string;
+  disabled?: boolean;
   'aria-describedby'?: string;
 }
 

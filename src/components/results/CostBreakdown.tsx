@@ -53,6 +53,11 @@ export const CostBreakdown = memo<CostBreakdownProps>(({
           <span className="font-medium text-gray-900 dark:text-white">{formatPrice(values.packagingCost + values.packagingCostGlobal, currency)}</span>
         </div>
 
+        <div className="flex justify-between" role="listitem">
+          <span className="text-gray-600 dark:text-gray-400">{t.extras}:</span>
+          <span className="font-medium text-gray-900 dark:text-white">{formatPrice(results.extrasCost, currency)}</span>
+        </div>
+
         <hr className="my-2 border-gray-200 dark:border-gray-700" />
 
         <div className="flex justify-between font-semibold text-gray-900 dark:text-white" role="listitem">

@@ -48,6 +48,15 @@ export const OperatingSection = memo<OperatingSectionProps>(({
       />
 
       <InputField
+        label={t.cfsWattage}
+        value={values.cfsWattage}
+        onChange={(e) => onUpdateValue('cfsWattage', parseFloat(e.target.value) || 0)}
+        unit={t.units.watts}
+        step="1"
+        aria-describedby="cfs-wattage-description"
+      />
+
+      <InputField
         label={t.electricityRate}
         value={values.electricityRate}
         onChange={(e) => onUpdateValue('electricityRate', parseFloat(e.target.value) || 0)}

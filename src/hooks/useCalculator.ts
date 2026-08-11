@@ -14,6 +14,12 @@ const DEFAULT_VALUES: CalculationValues = {
   wearTearPerHour: 0.20,
   packagingCost: 0.00,
   packagingCostGlobal: 0.00,
+  cfsWattage: 30,
+  dryingCostPerPrint: 0.06,
+  colorCount: 1,
+  colorSurchargePerColor: 0.50,
+  isSpecificSpoolRequired: false,
+  specificSpoolCost: 0.00,
   profitMargin: 30,
   quantity: 1
 } as const;
@@ -30,6 +36,7 @@ export const useCalculator = () => {
     laborCost: 0,
     electricityCost: 0,
     wearTearCost: 0,
+    extrasCost: 0,
     totalCost: 0,
     profit: 0,
     sellingPrice: 0
@@ -48,7 +55,7 @@ export const useCalculator = () => {
   }, [recalculate]);
 
   // Update a specific calculation value
-  const updateValue = useCallback((key: keyof CalculationValues, value: number) => {
+  const updateValue = useCallback((key: keyof CalculationValues, value: number | boolean) => {
     setValues(prev => ({
       ...prev,
       [key]: value

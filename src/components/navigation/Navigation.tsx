@@ -1,6 +1,6 @@
 
 import { memo, useMemo } from 'react';
-import { Settings, Package, Clock, Zap, DollarSign, Sun, Moon } from 'lucide-react';
+import { Settings, Package, Clock, Zap, Layers, DollarSign, Sun, Moon } from 'lucide-react';
 import { Logo } from '../ui/Logo';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { Language, NavigationSection } from '../../types';
@@ -28,6 +28,7 @@ export const Navigation = memo<NavigationProps>(({
     { id: 'material', title: t.materialCosts, icon: Package },
     { id: 'labor', title: t.timeLabor, icon: Clock },
     { id: 'operating', title: t.operatingCosts, icon: Zap },
+    { id: 'extras', title: t.extrasCosts, icon: Layers },
     { id: 'business', title: t.businessSettings, icon: DollarSign },
   ], [t]);
 
