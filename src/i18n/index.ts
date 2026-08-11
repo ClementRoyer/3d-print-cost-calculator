@@ -65,6 +65,8 @@ export interface Translation {
   settings: string;
   language: string;
   currency: string;
+  expandSidebar: string;
+  collapseSidebar: string;
 }
 
 export const translations: Record<Language, Translation> = {

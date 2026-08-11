@@ -40,7 +40,7 @@ export const Navigation = memo<NavigationProps>(({
           <h1 className="text-lg font-bold text-gray-900 dark:text-white">{t.title}</h1>
         </div>
 
-        <div className="absolute left-1/2 transform -translate-x-1/2 flex space-x-6">
+        <div className="absolute left-1/2 transform -translate-x-1/2 flex space-x-6 lg:hidden">
           {sections.map((section, index) => {
             const Icon = section.icon;
             return (

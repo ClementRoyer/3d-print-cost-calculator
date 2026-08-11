@@ -86,5 +86,7 @@ export const fr = {
   // Settings
   settings: "Paramètres",
   language: "Langue",
-  currency: "Devise"
+  currency: "Devise",
+  expandSidebar: "Déplier la navigation",
+  collapseSidebar: "Replier la navigation"
 } as const;

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { useCalculator } from '../hooks/useCalculator';
 import { useNavigation } from '../hooks/useNavigation';
 import { Navigation } from './navigation/Navigation';
+import { SidebarNav } from './navigation/SidebarNav';
 import { MaterialSection } from './sections/MaterialSection';
 import { LaborSection } from './sections/LaborSection';
 import { OperatingSection } from './sections/OperatingSection';
@@ -61,7 +62,17 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
       />
 
       <main className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="flex items-start gap-6">
+          <SidebarNav
+            values={values}
+            results={results}
+            currency={settings.currency}
+            language={settings.language}
+            activeSection={activeSection}
+            onScrollToSection={scrollToSection}
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-w-0">
           {/* Input Sections */}
           <div className="space-y-4">
             <MaterialSection
@@ -137,6 +148,7 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
               language={settings.language}
               selectedPrice={selectedPrice}
             />
+          </div>
           </div>
         </div>
       </main>
