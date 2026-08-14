@@ -12,6 +12,9 @@ export default defineConfig({
       host: '3d-calc.croyer.fr',
       protocol: 'wss',
     },
+    watch: {
+      ignored: ['**/.superpowers/**', '**/.git/**'],
+    },
   },
   build: {
     outDir: 'dist',
