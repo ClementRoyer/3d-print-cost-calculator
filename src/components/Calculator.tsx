@@ -70,9 +70,12 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
             language={settings.language}
             activeSection={activeSection}
             onScrollToSection={scrollToSection}
+            onShowTips={handleShowTips}
+            selectedPrice={selectedPrice}
+            onSelectPrice={setSelectedPrice}
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-1 min-w-0">
+          <div className="grid grid-cols-1 gap-6 flex-1 min-w-0">
           {/* Input Sections */}
           <div className="space-y-4">
             <MaterialSection
@@ -123,8 +126,8 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
             <div className="h-16" aria-hidden="true" />
           </div>
 
-          {/* Results Section */}
-          <div className="space-y-4 sticky top-20 self-start">
+          {/* Results Section — mobile/tablet only, replaced by the merged sidebar on lg: */}
+          <div className="lg:hidden space-y-4 sticky top-20 self-start">
             <CostBreakdown
               values={values}
               results={results}

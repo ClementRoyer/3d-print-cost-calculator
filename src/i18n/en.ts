@@ -86,7 +86,5 @@ export const en = {
   // Settings
   settings: "Settings",
   language: "Language",
-  currency: "Currency",
-  expandSidebar: "Expand navigation",
-  collapseSidebar: "Collapse navigation"
+  currency: "Currency"
 } as const;

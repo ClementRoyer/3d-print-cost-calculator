@@ -1,11 +1,11 @@
 
-import { memo, useState, useEffect, useMemo } from 'react';
-import { Package, Clock, Zap, Layers, DollarSign, ChevronsLeftRight } from 'lucide-react';
+import { memo, useMemo } from 'react';
+import { Package, Clock, Zap, Layers, DollarSign } from 'lucide-react';
 import { useTranslation } from '../../hooks/useTranslation';
-import { formatPrice, CURRENCY_SYMBOLS } from '../../utils/calculations';
+import { formatPrice } from '../../utils/calculations';
+import { PriceDisplay } from '../results/PriceDisplay';
+import { BatchSummary } from '../results/BatchSummary';
 import type { CalculationValues, CalculationResults, Currency, Language } from '../../types';
-
-const STORAGE_KEY = '3d-calc-sidebar-expanded';
 
 interface SidebarNavProps {
   readonly values: CalculationValues;
@@ -14,6 +14,9 @@ interface SidebarNavProps {
   readonly language: Language;
   readonly activeSection: number;
   readonly onScrollToSection: (index: number) => void;
+  readonly onShowTips: () => void;
+  readonly selectedPrice: 'selling' | 'recommended';
+  readonly onSelectPrice: (price: 'selling' | 'recommended') => void;
 }
 
 interface SidebarItem {
@@ -30,18 +33,12 @@ export const SidebarNav = memo<SidebarNavProps>(({
   currency,
   language,
   activeSection,
-  onScrollToSection
+  onScrollToSection,
+  onShowTips,
+  selectedPrice,
+  onSelectPrice
 }) => {
   const t = useTranslation(language);
-
-  const [expanded, setExpanded] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false;
-    return window.localStorage.getItem(STORAGE_KEY) === 'true';
-  });
-
-  useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, String(expanded));
-  }, [expanded]);
 
   const operatingTotal = results.electricityCost + results.wearTearCost + values.packagingCost + values.packagingCostGlobal;
 
@@ -85,21 +82,9 @@ export const SidebarNav = memo<SidebarNavProps>(({
 
   return (
     <nav
-      className={`hidden lg:flex flex-col flex-shrink-0 bg-white dark:bg-gray-800 rounded-lg shadow-md p-2 h-fit sticky top-20 transition-[width] duration-200 ${
-        expanded ? 'w-56' : 'w-40'
-      }`}
+      className="hidden lg:flex flex-col flex-shrink-0 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 h-fit sticky top-20 space-y-1"
       aria-label="Sections"
     >
-      <button
-        onClick={() => setExpanded((prev) => !prev)}
-        className="flex items-center gap-2 px-2 py-2 mb-1 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-        aria-label={expanded ? t.collapseSidebar : t.expandSidebar}
-        aria-expanded={expanded}
-      >
-        <ChevronsLeftRight className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-        {expanded && <span className="text-xs font-medium">{CURRENCY_SYMBOLS[currency]}</span>}
-      </button>
-
       {items.map((item, index) => {
         const Icon = item.icon;
         const isActive = activeSection === index;
@@ -111,24 +96,47 @@ export const SidebarNav = memo<SidebarNavProps>(({
               isActive ? item.bgClass : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
             }`}
             aria-current={isActive ? 'page' : undefined}
-            title={!expanded ? item.title : undefined}
           >
             <span className={`flex items-center justify-center h-7 w-7 rounded-md flex-shrink-0 ${item.bgClass} ${item.colorClass}`}>
               <Icon className="h-4 w-4" aria-hidden="true" />
             </span>
-            {expanded ? (
-              <span className="min-w-0 flex-1 text-left">
-                <span className={`block text-xs font-medium truncate ${isActive ? item.colorClass : 'text-gray-700 dark:text-gray-300'}`}>
-                  {item.title}
-                </span>
+            <span className="min-w-0 flex-1 text-left">
+              <span className={`block text-xs font-medium truncate ${isActive ? item.colorClass : 'text-gray-700 dark:text-gray-300'}`}>
+                {item.title}
               </span>
-            ) : null}
+            </span>
             <span className={`text-xs font-semibold whitespace-nowrap ${isActive ? item.colorClass : 'text-gray-500 dark:text-gray-400'}`}>
               {item.display}
             </span>
           </button>
         );
       })}
+
+      <div className="flex items-baseline justify-between px-2 pt-2 pb-1 border-t border-gray-200 dark:border-gray-700 mt-2">
+        <span className="text-sm font-semibold text-gray-900 dark:text-white">{t.totalCost}</span>
+        <span className="text-base font-bold text-gray-900 dark:text-white">{formatPrice(results.totalCost, currency)}</span>
+      </div>
+
+      <div className="pt-2">
+        <PriceDisplay
+          results={results}
+          currency={currency}
+          language={language}
+          onShowTips={onShowTips}
+          selectedPrice={selectedPrice}
+          onSelectPrice={onSelectPrice}
+        />
+      </div>
+
+      <div className="pt-2">
+        <BatchSummary
+          values={values}
+          results={results}
+          currency={currency}
+          language={language}
+          selectedPrice={selectedPrice}
+        />
+      </div>
     </nav>
   );
 });
