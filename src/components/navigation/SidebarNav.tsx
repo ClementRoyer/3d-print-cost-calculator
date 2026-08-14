@@ -152,17 +152,15 @@ export const SidebarNav = memo<SidebarNavProps>(({
         />
       </div>
 
-      {values.quantity > 1 && (
-        <div className="pt-4">
-          <BatchSummary
-            values={values}
-            results={results}
-            currency={currency}
-            language={language}
-            selectedPrice={selectedPrice}
-          />
-        </div>
-      )}
+      <div className="pt-4">
+        <BatchSummary
+          values={values}
+          results={results}
+          currency={currency}
+          language={language}
+          selectedPrice={selectedPrice}
+        />
+      </div>
     </nav>
   );
 });
