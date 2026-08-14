@@ -82,7 +82,7 @@ export const SidebarNav = memo<SidebarNavProps>(({
 
   return (
     <nav
-      className="hidden lg:flex lg:flex-col lg:flex-shrink-0 lg:w-2/5 xl:w-1/3 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] overflow-y-auto p-4 space-y-1"
+      className="hidden lg:flex lg:flex-col lg:flex-shrink-0 lg:w-2/5 xl:w-1/3 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] overflow-y-auto p-5 space-y-1.5"
       aria-label="Sections"
     >
       {costItems.map((item, index) => {
@@ -92,7 +92,7 @@ export const SidebarNav = memo<SidebarNavProps>(({
           <button
             key={item.title}
             onClick={() => onScrollToSection(index)}
-            className={`flex items-center gap-2 px-2 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`flex items-center gap-2 px-2 py-2.5 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               isActive ? item.bgClass : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
             }`}
             aria-current={isActive ? 'page' : undefined}
@@ -112,7 +112,7 @@ export const SidebarNav = memo<SidebarNavProps>(({
         );
       })}
 
-      <div className="flex items-baseline justify-between px-2 pt-2 pb-1 border-t border-gray-200 dark:border-gray-700 mt-2">
+      <div className="flex items-baseline justify-between px-2 pt-3 pb-1.5 border-t border-gray-200 dark:border-gray-700 mt-3">
         <span className="text-sm font-semibold text-gray-900 dark:text-white">{t.totalCost}</span>
         <span className="text-base font-bold text-gray-900 dark:text-white">{formatPrice(results.totalCost, currency)}</span>
       </div>
@@ -122,7 +122,7 @@ export const SidebarNav = memo<SidebarNavProps>(({
           into Total. */}
       <button
         onClick={() => onScrollToSection(BUSINESS_INDEX)}
-        className={`flex items-center gap-2 px-2 py-1.5 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+        className={`flex items-center gap-2 px-2 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
           isBusinessActive ? 'bg-purple-50 dark:bg-purple-900/30' : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
         }`}
         aria-current={isBusinessActive ? 'page' : undefined}
@@ -132,12 +132,15 @@ export const SidebarNav = memo<SidebarNavProps>(({
         }`}>
           <DollarSign className="h-3.5 w-3.5" aria-hidden="true" />
         </span>
-        <span className={`text-xs font-medium ${isBusinessActive ? 'text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}`}>
-          {t.businessSettings} · {t.profitMargin.toLowerCase()} {values.profitMargin}{t.units.percent}
+        <span className={`min-w-0 flex-1 text-left text-xs font-medium truncate ${isBusinessActive ? 'text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}`}>
+          {t.businessSettings}
+        </span>
+        <span className={`text-xs font-semibold whitespace-nowrap ${isBusinessActive ? 'text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}`}>
+          {values.profitMargin}{t.units.percent}
         </span>
       </button>
 
-      <div className="pt-2">
+      <div className="pt-4">
         <PriceDisplay
           results={results}
           currency={currency}
@@ -149,15 +152,17 @@ export const SidebarNav = memo<SidebarNavProps>(({
         />
       </div>
 
-      <div className="pt-2">
-        <BatchSummary
-          values={values}
-          results={results}
-          currency={currency}
-          language={language}
-          selectedPrice={selectedPrice}
-        />
-      </div>
+      {values.quantity > 1 && (
+        <div className="pt-4">
+          <BatchSummary
+            values={values}
+            results={results}
+            currency={currency}
+            language={language}
+            selectedPrice={selectedPrice}
+          />
+        </div>
+      )}
     </nav>
   );
 });
