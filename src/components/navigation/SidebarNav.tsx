@@ -125,6 +125,7 @@ export const SidebarNav = memo<SidebarNavProps>(({
           onShowTips={onShowTips}
           selectedPrice={selectedPrice}
           onSelectPrice={onSelectPrice}
+          compact
         />
       </div>
 
