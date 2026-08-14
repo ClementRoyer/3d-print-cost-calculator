@@ -27,6 +27,8 @@ interface SidebarItem {
   readonly display: string;
 }
 
+const BUSINESS_INDEX = 4;
+
 export const SidebarNav = memo<SidebarNavProps>(({
   values,
   results,
@@ -42,7 +44,10 @@ export const SidebarNav = memo<SidebarNavProps>(({
 
   const operatingTotal = results.electricityCost + results.wearTearCost + values.packagingCost + values.packagingCostGlobal;
 
-  const items = useMemo((): SidebarItem[] => [
+  // Only the 4 sections that actually contribute to the cost price — profit
+  // margin (Business) is applied afterwards and shown separately below, so
+  // it never reads as if it were summed into Total.
+  const costItems = useMemo((): SidebarItem[] => [
     {
       title: t.materialCosts,
       icon: Package,
@@ -70,22 +75,17 @@ export const SidebarNav = memo<SidebarNavProps>(({
       colorClass: 'text-teal-600 dark:text-teal-400',
       bgClass: 'bg-teal-50 dark:bg-teal-900/30',
       display: formatPrice(results.extrasCost, currency)
-    },
-    {
-      title: t.businessSettings,
-      icon: DollarSign,
-      colorClass: 'text-purple-600 dark:text-purple-400',
-      bgClass: 'bg-purple-50 dark:bg-purple-900/30',
-      display: `${values.profitMargin}${t.units.percent}`
     }
-  ], [t, results, values, operatingTotal, currency]);
+  ], [t, results, operatingTotal, currency]);
+
+  const isBusinessActive = activeSection === BUSINESS_INDEX;
 
   return (
     <nav
-      className="hidden lg:flex flex-col flex-shrink-0 w-72 bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 h-fit sticky top-20 space-y-1"
+      className="hidden lg:flex lg:flex-col lg:flex-shrink-0 lg:w-2/5 xl:w-1/3 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] overflow-y-auto p-4 space-y-1"
       aria-label="Sections"
     >
-      {items.map((item, index) => {
+      {costItems.map((item, index) => {
         const Icon = item.icon;
         const isActive = activeSection === index;
         return (
@@ -116,6 +116,26 @@ export const SidebarNav = memo<SidebarNavProps>(({
         <span className="text-sm font-semibold text-gray-900 dark:text-white">{t.totalCost}</span>
         <span className="text-base font-bold text-gray-900 dark:text-white">{formatPrice(results.totalCost, currency)}</span>
       </div>
+
+      {/* Business (profit margin) is a pricing setting, not a cost — kept
+          visually apart from the list above so it never reads as summed
+          into Total. */}
+      <button
+        onClick={() => onScrollToSection(BUSINESS_INDEX)}
+        className={`flex items-center gap-2 px-2 py-1.5 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          isBusinessActive ? 'bg-purple-50 dark:bg-purple-900/30' : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
+        }`}
+        aria-current={isBusinessActive ? 'page' : undefined}
+      >
+        <span className={`flex items-center justify-center h-6 w-6 rounded-md flex-shrink-0 bg-purple-50 dark:bg-purple-900/30 ${
+          isBusinessActive ? 'text-purple-600 dark:text-purple-400' : 'text-purple-500 dark:text-purple-400'
+        }`}>
+          <DollarSign className="h-3.5 w-3.5" aria-hidden="true" />
+        </span>
+        <span className={`text-xs font-medium ${isBusinessActive ? 'text-purple-700 dark:text-purple-300' : 'text-gray-500 dark:text-gray-400'}`}>
+          {t.businessSettings} · {t.profitMargin.toLowerCase()} {values.profitMargin}{t.units.percent}
+        </span>
+      </button>
 
       <div className="pt-2">
         <PriceDisplay

@@ -61,21 +61,21 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
         onToggleTheme={onToggleTheme}
       />
 
-      <main className="max-w-6xl mx-auto px-4">
-        <div className="flex items-start gap-6">
-          <SidebarNav
-            values={values}
-            results={results}
-            currency={settings.currency}
-            language={settings.language}
-            activeSection={activeSection}
-            onScrollToSection={scrollToSection}
-            onShowTips={handleShowTips}
-            selectedPrice={selectedPrice}
-            onSelectPrice={setSelectedPrice}
-          />
+      <div className="lg:flex lg:items-start">
+        <SidebarNav
+          values={values}
+          results={results}
+          currency={settings.currency}
+          language={settings.language}
+          activeSection={activeSection}
+          onScrollToSection={scrollToSection}
+          onShowTips={handleShowTips}
+          selectedPrice={selectedPrice}
+          onSelectPrice={setSelectedPrice}
+        />
 
-          <div className="grid grid-cols-1 gap-6 flex-1 min-w-0">
+        <main className="max-w-6xl mx-auto px-4 lg:flex-1 lg:min-w-0">
+          <div className="grid grid-cols-1 gap-6">
           {/* Input Sections */}
           <div className="space-y-4">
             <MaterialSection
@@ -153,8 +153,8 @@ const Calculator = ({ theme, onToggleTheme }: CalculatorProps) => {
             />
           </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
 
       <SettingsModal
         isOpen={showSettings}

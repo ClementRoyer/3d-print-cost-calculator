@@ -104,6 +104,12 @@ export const OperatingSection = memo<OperatingSectionProps>(({
         <p className="text-sm text-orange-800 dark:text-orange-300">
           <strong>{t.packaging}:</strong> {formatPrice(values.packagingCost + values.packagingCostGlobal, currency)}
         </p>
+        <p className="text-sm text-orange-900 dark:text-orange-200 font-semibold pt-1 border-t border-orange-200 dark:border-orange-800">
+          <strong>{t.operatingCosts}:</strong> {formatPrice(
+            results.electricityCost + results.wearTearCost + values.packagingCost + values.packagingCostGlobal,
+            currency
+          )}
+        </p>
       </div>
     </section>
   );
